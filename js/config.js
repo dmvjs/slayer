@@ -1,10 +1,13 @@
-const config = {
-    // initialKey:9,
-    initialTempo: 123,
-    fileType: '.wav',
-    //length: 5, //17
-    //changeTempoAtIndex: 19, //4,
-    //changeTo102AtIndex: 39 //9
-}
+const config = !window.location.hostname.includes("localhost")
+  ? {
+      /*initialKey: 1,
+      initialTempo: 84,
+      fileType: ".wav",*/
+    }
+  : {
+      // initialKey: 1,
+      initialTempo: 123,
+      fileType: ".wav",
+    };
 
-export {config}
+export { config };

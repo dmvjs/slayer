@@ -1,4 +1,7 @@
-const context = new AudioContext();
-context.suspend();
+import {BufferLoader} from "./BufferLoader.js";
 
-export{context}
+
+export const context = new AudioContext();
+context.suspend();
+new BufferLoader( context, [null], ()=>{} );
+

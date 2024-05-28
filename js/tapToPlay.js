@@ -1,21 +1,43 @@
-import {context} from "./context.js";
+import { context } from "./context.js";
+import { init } from "./preload.js";
+import { disableTempoButtons } from "./dom.js";
 
-const playButton = document.getElementById('play-button')
-const pauseButton = document.getElementById('pause-button')
-pauseButton.hidden = true;
+const playButton = document.getElementById("play-button");
 
-const myEvent = ('ontouchstart' in document.documentElement) ? 'touchend' : 'click';
+const myEvent =
+  "ontouchstart" in document.documentElement ? "touchend" : "click";
 playButton.addEventListener(myEvent, startApplication);
-pauseButton.addEventListener(myEvent, pauseApplication);
+export let userHasPressedPlay = false;
+// Create a reference for the Wake Lock.
+let wakeLock = null;
 
-function startApplication () {
-    pauseButton.hidden = false;
-    playButton.hidden = true;
+function startApplication() {
+  if (userHasPressedPlay === false) {
+    userHasPressedPlay = true;
+    init();
+  }
+  playButton.removeEventListener(myEvent, startApplication);
+  playButton.innerText = "⏸️ PAUSE";
+  playButton.addEventListener(myEvent, pauseApplication);
+  disableTempoButtons();
+  wakeLock = navigator.wakeLock.request("screen");
+  setTimeout(() => {
     context.resume();
+    console.log('🚨')
+  }, 800);
 }
 
-function pauseApplication () {
-    pauseButton.hidden = true;
-    playButton.hidden = false;
-    context.suspend();
+function pauseApplication() {
+  playButton.removeEventListener(myEvent, pauseApplication);
+  playButton.innerText = "▶️ PLAY";
+  context.suspend();
+  playButton.addEventListener(myEvent, startApplication);
 }
+
+document.addEventListener("visibilitychange", (event) => {
+  if (document.visibilityState === "visible") {
+    // console.log("tab is active")
+  } else {
+    pauseApplication();
+  }
+});

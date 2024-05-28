@@ -1,32 +1,91 @@
-import {config} from "./config.js";
-let initialKey = parseInt(String(Math.floor(Math.random() * 12)), 10)
-let isBackwards = Math.random() > 0.5;
-let activeKey = config.initialKey ?? initialKey; // 0-11
+import { config } from "./config.js";
+import { quantumRandom } from "./cryptoRandom.js";
+export let initialKey =
+  config.initialKey ??
+  parseInt(String(Math.floor(quantumRandom() * 12)), 10) + 1;
+export let activeKey = config.initialKey ?? initialKey; // 1-12
 
-function getNextKey(inputKey, prevKey) {
-    let key = prevKey ? (isBackwards ? (inputKey - 1) : (inputKey + 1)) : isBackwards ? (inputKey + 1) : (inputKey - 1);
-    if (!isBackwards && key > 11) {
-        key = 0;
-    } else if (isBackwards && key < 0) {
-        key = 11;
-    }
-    return key;
-}
+export const setActiveKey = (key) => {
+  if (key > 0 && key < 13 && key % 1 === 0) {
+    activeKey = key;
+  }
+};
 
-function updateActiveKey () {
-    activeKey += 1 * (isBackwards ? -1 : 1);
-    if (activeKey > 11) {
-        activeKey = 0;
-    } else if (activeKey < 0) {
-        activeKey = 11
-    }
-}
+export const setInitialKey = (key) => {
+  if (key >= 1 && key <= 12 && key % 1 === 0) {
+    initialKey = key;
+  }
+};
 
-export {
-    activeKey,
-    getNextKey,
-    initialKey,
-    isBackwards,
-    updateActiveKey
-}
+export const getNextKey = (inputKey, prevKey) => {
+  let key = prevKey ? inputKey - 1 : inputKey + 1;
+  if (key > 12) {
+    key = 1;
+  } else if (key < 1) {
+    key = 12;
+  }
+  return key;
+};
 
+export const iterateActiveKey = () => {
+  activeKey += 1;
+  if (activeKey > 12) {
+    activeKey = 1;
+  } else if (activeKey < 1) {
+    activeKey = 12;
+  }
+};
+
+const getScore = (a) => {
+  let score
+  if (activeKey === a.key) {
+    score = 12 / 12;
+  } else if (activeKey === getNextKey(a.key)) {
+    score = 11 / 12;
+  } else if (activeKey === getNextKey(a.key, true)) {
+    score = 10 / 12;
+  } else if (activeKey === getNextKey(getNextKey(a.key))) {
+    score = 9 / 12;
+  } else if (activeKey === getNextKey(getNextKey(a.key, true))) {
+    score = 8 / 12;
+  } else if (activeKey === getNextKey(getNextKey(getNextKey(a.key)))) {
+    score = 7 / 12;
+  } else if (activeKey === getNextKey(getNextKey(getNextKey(a.key, true)))) {
+    score = 6 / 12;
+  } else if (
+    activeKey === getNextKey(getNextKey(getNextKey(getNextKey(a.key))))
+  ) {
+    score = 5 / 12;
+  } else if (
+    activeKey === getNextKey(getNextKey(getNextKey(getNextKey(a.key, true))))
+  ) {
+    score = 4 / 12;
+  } else if (
+    activeKey ===
+    getNextKey(getNextKey(getNextKey(getNextKey(getNextKey(a.key)))))
+  ) {
+    score = 3 / 12;
+  } else if (
+    activeKey ===
+    getNextKey(getNextKey(getNextKey(getNextKey(getNextKey(a.key, true)))))
+  ) {
+    score = 2 / 12;
+  } else if (
+    activeKey ===
+    getNextKey(
+      getNextKey(getNextKey(getNextKey(getNextKey(getNextKey(a.key))))),
+    )
+  ) {
+    score = 1 / 12;
+  } else {
+    score = 0;
+  }
+  return score;
+};
+
+export const keySort = (a, b) => {
+  let aScore = getScore(a);
+  let bScore = getScore(b);
+
+  return aScore < bScore ? 1 : aScore > bScore ? -1 : 0;
+};

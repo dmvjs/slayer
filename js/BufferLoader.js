@@ -1,9 +1,10 @@
 function BufferLoader(context, urlList, callback) {
     this.context = context;
-    this.urlList = urlList;
+    this.urlList = urlList.list;
     this.onload = callback;
     this.bufferList = [];
     this.loadCount = 0;
+    this.bpm = urlList.bpm
 }
 
 BufferLoader.prototype.loadBuffer = function(url, index) {
@@ -24,8 +25,9 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
                     return;
                 }
                 loader.bufferList[index] = buffer;
-                if (++loader.loadCount === loader.urlList.length)
-                    loader.onload(loader.bufferList);
+                if (++loader.loadCount === loader.urlList.length) {
+                    loader.onload(loader.bufferList, loader.bpm);
+                }
             },
             function(error) {
                 console.error('decodeAudioData error', error);
@@ -33,16 +35,17 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
         );
     }
 
-    request.onerror = function() {
-        alert('BufferLoader: XHR error');
+    request.onerror = function(error) {
+        console.error('BufferLoader error', error);
     }
 
     request.send();
 }
 
 BufferLoader.prototype.load = function() {
-    for (let i = 0; i < this.urlList.length; ++i)
+    for (let i = 0; i < this.urlList.length; ++i) {
         this.loadBuffer(this.urlList[i], i);
+    }
 }
 
 export {
