@@ -33,6 +33,7 @@ export const setKey = (e) => {
 
 export const deck1Select = document.getElementById("deck-1");
 export const deck2Select = document.getElementById("deck-2");
+export const deck3Select = document.getElementById("deck-3");
 export const firstSongLabel = document.getElementById("first-song-label");
 export const secondSongLabel = document.getElementById("second-song-label");
 export const thirdSongLabel = document.getElementById("third-song-label");

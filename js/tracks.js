@@ -8,7 +8,7 @@ import { songdata } from "./songdata.js";
 import { addTracks } from "./share.js";
 import {
   deck1Select,
-  deck2Select,
+  deck2Select, deck3Select,
   firstSongLabel,
   fourthSongLabel,
   hideElement,
@@ -34,6 +34,7 @@ export const updateUI = (
   key,
   firstSongId,
   secondSongId,
+  thirdSongId,
   trackIndex,
   isFromCountdown = false,
 ) => {
@@ -91,7 +92,16 @@ export const updateUI = (
   };
 };
 
-export const getSelectedSongIds = () => {
+let lastValues = []
+
+export const getIdsFromArray = (part2) => {
+  let values = [1,2,3,4,5,6,7,8,9]._shuffle();
+  console.log('🏁', lastValues.length, part2)
+  lastValues = lastValues.length === 0 ? values.slice(0, 3) : part2 ? lastValues : values.slice(0, 3);
+  return lastValues;
+}
+
+export const getSelectedSongIds = (isAfterMagic) => {
   const songs = getSongs();
   const firstSong =
     deck1Select.value === "-1"
@@ -105,12 +115,20 @@ export const getSelectedSongIds = () => {
       : songs.thisTempoSongs.find((s) => {
           return s.id === parseInt(deck2Select.value, 10);
         });
-  return [1, 2, 3];
+  const thirdSong =
+      deck2Select.value === "-1"
+          ? null
+          : songs.thisTempoSongs.find((s) => {
+            return s.id === parseInt(deck3Select.value, 10);
+          });
+
+   return getIdsFromArray(isAfterMagic);
 };
 export const loadSongsIntoSelect = () => {
   const songs = getSongs();
   deck1Select.length = 0;
   deck2Select.length = 0;
+  deck3Select.length = 0;
   const optionDefault1 = document.createElement("option");
   optionDefault1.value = "-1";
   optionDefault1.innerText = `Pick next deck 1 song ${activeTempo}bpm`;
@@ -122,6 +140,12 @@ export const loadSongsIntoSelect = () => {
   optionDefault2.innerText = `Pick next deck 2 song ${activeTempo}bpm`;
   deck2Select.appendChild(optionDefault2);
   deck2Select.value = "-1";
+
+  const optionDefault3 = document.createElement("option");
+  optionDefault3.value = "-1";
+  optionDefault3.innerText = `Pick next deck 3 song ${activeTempo}bpm`;
+  deck3Select.appendChild(optionDefault3);
+  deck3Select.value = "-1";
   [
     ...new Set(
       songs.thisTempoSongs
@@ -137,11 +161,17 @@ export const loadSongsIntoSelect = () => {
     const option2 = document.createElement("option");
     option2.value = `${item.id}`;
     option2.innerText = `${item.artist} - ${item.title} [${item.key}]`;
+    const option3 = document.createElement("option");
+    option3.value = `${item.id}`;
+    option3.innerText = `${item.artist} - ${item.title} [${item.key}]`;
     deck1Select.appendChild(option1);
     deck2Select.appendChild(option2);
+    deck3Select.appendChild(option3);
   });
-  deck1Select.value = 1;
-  deck2Select.value = 2;
+  //const ids = getIdsFromArray();
+  /*deck1Select.value = ids[0];
+  deck2Select.value = ids[1];
+  deck3Select.value = ids[2];*/
 };
 export const getTracks = (
   track1,
@@ -156,18 +186,20 @@ export const getTracks = (
     // console.log('station identification…')
   }
   const firstSongFromURL = track1 && getSongById(track1);
-  const firstSongId = 1
-  const secondSongId = 2
+  const ids = getIdsFromArray( trackIndex % magicNumber === 1);
+  const firstSongId = ids[0]
+  const secondSongId = ids[1]
+  const thirdSongId = ids[2]
 
   if (!isMagicTime) {
     // console.log('followed by…')
   }
-  const firstTrack = file(1, isMagicTime);
+  const firstTrack = file(firstSongId, isMagicTime);
   let secondTrack;
   let thirdTrack;
   if (secondSongId) {
-    secondTrack = file(2, isMagicTime);
-    thirdTrack = file(3, isMagicTime, true);
+    secondTrack = file(secondSongId, isMagicTime);
+    thirdTrack = file(thirdSongId, isMagicTime, true);
   }
   addTracks([firstSongId, secondSongId]);
   const returnArray = [firstTrack];
@@ -178,10 +210,10 @@ export const getTracks = (
   console.log(returnArray)
 
   requestAnimationFrame(
-    updateUI(activeKey, 1, 2, trackIndex, isFromCountdown),
+    updateUI(activeKey, firstSongId, secondSongId, thirdSongId, trackIndex, isFromCountdown),
   );
   if (isMagicTime) {
-    holder[trackIndex] = [firstSongId, secondSongId];
+    holder[trackIndex] = [firstSongId, secondSongId, thirdSongId];
   } else {
     updateTempoUI(firstSongId.bpm);
     updateActiveKey();

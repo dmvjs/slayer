@@ -1,4 +1,5 @@
 import {
+  getIdsFromArray,
   getSelectedSongIds,
   getTracks,
   isMagicTime,
@@ -79,23 +80,25 @@ export const init = () => {
     hideElement(document.getElementById("on-deck"));
     const hasError = () => (window.location = "/");
 
+    const idsFromArray = getIdsFromArray( trackIndex % magicNumber === 1)
+
     const p1 = fetch(
-      file(1, trackIndex % magicNumber === 0),
+      file(idsFromArray[0], trackIndex % magicNumber === 0),
     );
     const p2 = fetch(
-      file(2, trackIndex % magicNumber === 0),
+      file(idsFromArray[1], trackIndex % magicNumber === 0),
     );
     const p3 = fetch(
-        file(3, trackIndex % magicNumber === 0, true),
+        file(idsFromArray[2], trackIndex % magicNumber === 0, true),
     );
 
     Promise.all([p1, p2, p3]).then(() => {
       bufferLoader = new BufferLoader(
         context,
         getTracks(
-          1,
-          2,
-          3,
+            idsFromArray[0],
+            idsFromArray[1],
+            idsFromArray[2],
           true,
         ),
         finishedLoading,
@@ -145,7 +148,7 @@ export const init = () => {
 };
 
 const loadTracks = (isFromCountdown = false, isStartingCountdown = false) => {
-  const ids = getSelectedSongIds();
+  const ids = getSelectedSongIds(trackIndex % magicNumber === 1);
   if (ids && typeof 1 === "number") {
     const p1 = fetch(file(1, trackIndex % magicNumber === 0));
     const p2 = fetch(file(2, trackIndex % magicNumber === 0));
