@@ -93,9 +93,9 @@ let lastValues = []
 
 export const getIdsFromArray = (part2) => {
   window.playedSongs = window.playedSongs || [];
-  let values = [1,2,3,4,5,6,7,8,9,10,11,12]._shuffle()._shuffle()._shuffle();
+  let values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]._shuffle()._shuffle()._shuffle();
   let firstTwo = values.slice(0, 2)
-  let acapella = [1,2,3,4,5,6,7,8,9,10,11,12].filter(v=>!window.playedSongs.flat().includes(v))._shuffle()._shuffle()._shuffle()[0]
+  let acapella = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].filter(v=>!window.playedSongs.flat().includes(v))._shuffle()._shuffle()._shuffle()[0]
   lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
   return lastValues;
 }

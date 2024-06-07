@@ -82,5 +82,26 @@ export const songdata = [
     title: "Hold Me Closer",
     key: 2,
     bpm: 123,
+  },
+  {
+    id: 13,
+    artist: "Outkast",
+    title: "The Way You Move",
+    key: 2,
+    bpm: 123,
+  },
+  {
+    id: 14,
+    artist: "Katy Perry",
+    title: "TGIF",
+    key: 2,
+    bpm: 123,
+  },
+  {
+    id: 15,
+    artist: "Ylvis",
+    title: "What the Fox",
+    key: 2,
+    bpm: 123,
   }
 ];
