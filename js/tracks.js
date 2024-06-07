@@ -89,7 +89,7 @@ export const updateUI = (
 
 let lastValues = []
 
-export const getIdsFromArray = (part2) => {
+export const getSelectedSongIds = (part2) => {
   window.playedSongs = window.playedSongs || [];
   const songs = getSongs()
   const acapella = songs.thisTempoSongs.filter(v=>!window.playedSongs.flat().includes(v.id)).sort(keySort).slice(0, 6)._shuffle()[0].id
@@ -98,10 +98,6 @@ export const getIdsFromArray = (part2) => {
   lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
   return lastValues;
 }
-
-export const getSelectedSongIds = () => {
-   return [];
-};
 export const getTracks = (
   track1,
   track2,
@@ -114,7 +110,7 @@ export const getTracks = (
     // console.log('station identification…')
   }
   const firstSongFromURL = track1 && getSongById(track1);
-  const ids = getIdsFromArray( trackIndex % magicNumber === 1);
+  const ids = getSelectedSongIds( trackIndex % magicNumber === 1);
   const firstSongId = ids[0]
   const secondSongId = ids[1]
   const thirdSongId = ids[2]
