@@ -1,9 +1,6 @@
 import { activeKey, keySort } from "./key.js";
-import { filetype } from "./filetype.js";
-import { justStarTrekIntro, samples } from "./samples.js";
 import { getSongById } from "./song.js";
 import { activeTempo, updateTempoUI } from "./tempo.js";
-import { quantumRandom } from "./cryptoRandom.js";
 import { songdata } from "./songdata.js";
 import { addTracks } from "./share.js";
 import {
@@ -17,7 +14,7 @@ import {
   thirdSongLabel,
   updateActiveKey,
 } from "./dom.js";
-import { getSong, getSongs } from "./getSongs.js";
+import { getSongs } from "./getSongs.js";
 import "./shuffle.js";
 import { file } from "./utils.js";
 
@@ -43,7 +40,7 @@ export const updateUI = (
   return () => {
     document.body.className = `color-${key}`;
     window.playedSongs = window.playedSongs || [];
-    window.playedSongs.push([firstSongId, secondSongId]);
+    window.playedSongs.push([thirdSongId]);
     const firstSongUI = songdata.filter(
       (item) =>
         item.id === window.playedSongs[trackIndex < 0 ? 0 : trackIndex][0],
@@ -95,13 +92,15 @@ export const updateUI = (
 let lastValues = []
 
 export const getIdsFromArray = (part2) => {
-  let values = [1,2,3,4,5,6,7,8,9]._shuffle();
-  console.log('🏁', lastValues.length, part2)
-  lastValues = lastValues.length === 0 ? values.slice(0, 3) : part2 ? lastValues : values.slice(0, 3);
+  window.playedSongs = window.playedSongs || [];
+  let values = [1,2,3,4,5,6,7,8,9,10,11,12]._shuffle()._shuffle()._shuffle();
+  let firstTwo = values.slice(0, 2)
+  let acapella = [1,2,3,4,5,6,7,8,9,10,11,12].filter(v=>!window.playedSongs.flat().includes(v))._shuffle()._shuffle()._shuffle()[0]
+  lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
   return lastValues;
 }
 
-export const getSelectedSongIds = (isAfterMagic) => {
+export const getSelectedSongIds = () => {
   const songs = getSongs();
   const firstSong =
     deck1Select.value === "-1"
@@ -122,7 +121,7 @@ export const getSelectedSongIds = (isAfterMagic) => {
             return s.id === parseInt(deck3Select.value, 10);
           });
 
-   return getIdsFromArray(isAfterMagic);
+   return [firstSong, secondSong, thirdSong];
 };
 export const loadSongsIntoSelect = () => {
   const songs = getSongs();
@@ -180,7 +179,6 @@ export const getTracks = (
   skipSamples = false,
   isFromCountdown = false,
 ) => {
-  const isUsingTracksFromURL = track1 !== undefined;
   isMagicTime = trackIndex % magicNumber === 0;
   if (isMagicTime) {
     // console.log('station identification…')
@@ -201,12 +199,8 @@ export const getTracks = (
     secondTrack = file(secondSongId, isMagicTime);
     thirdTrack = file(thirdSongId, isMagicTime, true);
   }
-  addTracks([firstSongId, secondSongId]);
-  const returnArray = [firstTrack];
-  if (secondTrack) {
-    returnArray.push(secondTrack);
-    returnArray.push(thirdTrack);
-  }
+  addTracks([firstSongId, secondSongId, thirdSongId]);
+  const returnArray = [firstTrack, secondTrack, thirdTrack]
   console.log(returnArray)
 
   requestAnimationFrame(

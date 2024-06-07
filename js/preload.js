@@ -228,12 +228,8 @@ function finishedLoading(bufferList, tempo) {
   const barDuration = 60 / tempo;
   const min =
     bufferList[0].duration < 32
-      ? activeTempo === 123
         ? barDuration * 64
-        : barDuration * 16
-      : activeTempo === 123
-      ? barDuration * 256
-      : barDuration * 64;
+      : barDuration * 256;
   setBufferPadding(bufferPadding + min);
   if (!usingTracksFromURL) {
     if (activeKey === getNextKey(initialKey, true)) {

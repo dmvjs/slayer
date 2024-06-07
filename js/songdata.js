@@ -61,5 +61,26 @@ export const songdata = [
     title: "Dont Stop the Music",
     key: 2,
     bpm: 123,
+  },
+  {
+    id: 10,
+    artist: "LMFAO",
+    title: "Party Rock Anthem",
+    key: 2,
+    bpm: 123,
+  },
+  {
+    id: 11,
+    artist: "David Guetta",
+    title: "Im Good",
+    key: 2,
+    bpm: 123,
+  },
+  {
+    id: 12,
+    artist: "Elton John",
+    title: "Hold Me Closer",
+    key: 2,
+    bpm: 123,
   }
 ];

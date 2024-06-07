@@ -11,9 +11,6 @@ import {
   onTempoChange,
   setActiveTempo,
   tempo1Input,
-  tempo2Input,
-  tempo3Input,
-  tempo4Input,
   updateTempoUI,
 } from "./tempo.js";
 
@@ -72,9 +69,6 @@ export const initializeKeyListeners = () => {
 
 export const initializeTempo = () => {
   tempo1Input.addEventListener("change", onTempoChange);
-  tempo2Input.addEventListener("change", onTempoChange);
-  tempo3Input.addEventListener("change", onTempoChange);
-  tempo4Input.addEventListener("change", onTempoChange);
   setActiveTempo(activeTempo);
   updateTempoUI(activeTempo);
   loadSongsIntoSelect();
@@ -82,15 +76,9 @@ export const initializeTempo = () => {
 
 export const disableTempoButtons = () => {
   tempo1Input.disabled = true;
-  tempo2Input.disabled = true;
-  tempo3Input.disabled = true;
-  tempo4Input.disabled = true;
 };
 export const enableTempoButtons = () => {
   tempo1Input.disabled = false;
-  tempo2Input.disabled = false;
-  tempo3Input.disabled = false;
-  tempo4Input.disabled = false;
 };
 
 export const updateActiveKey = () => {
