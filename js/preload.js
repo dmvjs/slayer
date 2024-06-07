@@ -1,5 +1,4 @@
 import {
-  getIdsFromArray,
   getSelectedSongIds,
   getTracks,
   isMagicTime,
@@ -15,19 +14,13 @@ import {
   setBufferPadding,
 } from "./buffers.js";
 import { activeTempo } from "./tempo.js";
-import { removeSongFromListById, resetSongs } from "./song.js";
+import { resetSongs } from "./song.js";
 import { activeKey, getNextKey, initialKey } from "./key.js";
 import {
   hideElement,
   showElement,
 } from "./dom.js";
 import { file, hasError } from "./utils.js";
-import {
-  parsedTracks,
-  tracksFromURL,
-  tracksFromURLIndex,
-  setTracksFromUrlIndex,
-} from "./init.js";
 
 let bufferLoader;
 let isFirst = true;
@@ -40,67 +33,7 @@ export const resetTempoIndex = () => {
 };
 
 export const init = () => {
-  if (tracksFromURL && (parsedTracks?.length || 0) > trackIndex) {
-    usingTracksFromURL = true;
-    let tracks;
-    try {
-      // if you just provide a number value for tracks it will repeat a single track
-      if (typeof tracks === "number") {
-        tracks = [[tracks]];
-      } else {
-        tracks = JSON.parse(tracksFromURL);
-      }
-    } catch (e) {
-      if (!Array.isArray(tracks)) {
-        // a string like this will also work: 1,2-3,4-5,6 and will evaluate to [[1,2],[3,4],[5,6]]
-        tracks = tracksFromURL
-          .split("-")
-          .filter(Boolean)
-          .map((x) =>
-            x
-              .split(",")
-              .filter(Boolean)
-              .map((v) => parseInt(v, 10)),
-          );
-      }
-    }
-    if (!tracks?.[tracksFromURLIndex]?.[0]) {
-      console.error("track URL load error");
-      return;
-    }
-    hideElement(document.getElementById("up-next"));
-    hideElement(document.getElementById("on-deck"));
-    const hasError = () => (window.location = "/");
-
-    const idsFromArray = getIdsFromArray( trackIndex % magicNumber === 1)
-
-    const p1 = fetch(
-      file(idsFromArray[0], trackIndex % magicNumber === 0),
-    );
-    const p2 = fetch(
-      file(idsFromArray[1], trackIndex % magicNumber === 0),
-    );
-    const p3 = fetch(
-        file(idsFromArray[2], trackIndex % magicNumber === 0, true),
-    );
-
-    Promise.all([p1, p2, p3]).then(() => {
-      bufferLoader = new BufferLoader(
-        context,
-        getTracks(
-            idsFromArray[0],
-            idsFromArray[1],
-            idsFromArray[2],
-          true,
-        ),
-        finishedLoading,
-      );
-      removeSongFromListById(tracks[tracksFromURLIndex][0].id);
-      removeSongFromListById(tracks[tracksFromURLIndex][1].id);
-      setTracksFromUrlIndex(tracksFromURLIndex + 1);
-      bufferLoader.load();
-    }, hasError);
-  } else if (isFirst || isMagicTime) {
+  if (isFirst || isMagicTime) {
     loadTracks();
     hideElement(document.getElementById("up-next"));
     hideElement(document.getElementById("on-deck"));

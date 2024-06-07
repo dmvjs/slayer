@@ -24,3 +24,5 @@ export const getId = (array) => {
   removeSongFromListById(id);
   return { artist: selectedSong.artist, id: selectedSong.id };
 };
+
+resetSongs()

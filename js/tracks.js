@@ -1,4 +1,4 @@
-import { activeKey } from "./key.js";
+import {activeKey, keySort} from "./key.js";
 import { getSongById } from "./song.js";
 import { activeTempo, updateTempoUI } from "./tempo.js";
 import { songdata } from "./songdata.js";
@@ -14,6 +14,7 @@ import {
 } from "./dom.js";
 import "./shuffle.js";
 import { file } from "./utils.js";
+import {getSongs} from "./getSongs.js";
 
 let holder = {};
 export const magicNumber = 5;
@@ -90,9 +91,10 @@ let lastValues = []
 
 export const getIdsFromArray = (part2) => {
   window.playedSongs = window.playedSongs || [];
-  let values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]._shuffle()._shuffle()._shuffle();
-  let firstTwo = values.slice(0, 2)
-  let acapella = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].filter(v=>!window.playedSongs.flat().includes(v))._shuffle()._shuffle()._shuffle()[0]
+  const songs = getSongs()
+  const acapella = songs.thisTempoSongs.filter(v=>!window.playedSongs.flat().includes(v.id)).sort(keySort).slice(0, 6)._shuffle()[0].id
+  let values = songs.thisTempoSongs.sort(keySort).slice(0, 6)._shuffle();
+  let firstTwo = values.slice(0, 2).map(x=>x.id)
   lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
   return lastValues;
 }
