@@ -103,5 +103,19 @@ export const songdata = [
     title: "What the Fox",
     key: 12,
     bpm: 123,
+  },
+  {
+    id: 16,
+    artist: "Maroon 5",
+    title: "Moves Like Jagger",
+    key: 10,
+    bpm: 123,
+  },
+  {
+    id: 17,
+    artist: "Black Eyed Peas",
+    title: "Feels Like A Good Night",
+    key: 9,
+    bpm: 123,
   }
 ];
