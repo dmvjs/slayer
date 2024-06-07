@@ -69,6 +69,7 @@ export const init = () => {
       hideElement(document.getElementById("up-next"));
       clearInterval(interval);
     }, numberOfSeconds * 1000);*/
+    loadTracks(true);
   }
 };
 
