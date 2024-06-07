@@ -117,5 +117,26 @@ export const songdata = [
     title: "Feels Like A Good Night",
     key: 9,
     bpm: 123,
+  },
+  {
+    id: 18,
+    artist: "DNCE",
+    title: "Cake by the Ocean",
+    key: 9,
+    bpm: 123,
+  },
+  {
+    id: 19,
+    artist: "St John",
+    title: "Roses Imanbek Remix",
+    key: 4,
+    bpm: 123,
+  },
+  {
+    id: 20,
+    artist: "Becky Hill",
+    title: "My Heart Goes La Di Da",
+    key: 4,
+    bpm: 123,
   }
 ];
