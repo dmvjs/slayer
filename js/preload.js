@@ -18,16 +18,8 @@ import { activeTempo } from "./tempo.js";
 import { removeSongFromListById, resetSongs } from "./song.js";
 import { activeKey, getNextKey, initialKey } from "./key.js";
 import {
-  deck1Select,
-  deck2Select,
-  disableTempoButtons,
-  enableTempoButtons,
-  firstSongLabel,
-  fourthSongLabel,
   hideElement,
-  secondSongLabel,
   showElement,
-  thirdSongLabel,
 } from "./dom.js";
 import { file, hasError } from "./utils.js";
 import {
@@ -114,9 +106,9 @@ export const init = () => {
     hideElement(document.getElementById("on-deck"));
   } else {
     hideElement(document.getElementById("hurricane-container"));
-    deck1Select.disabled = false;
-    deck2Select.disabled = false;
-    const element = document.getElementById("counter-holder");
+    //deck1Select.disabled = false;
+    //deck2Select.disabled = false;
+    /*const element = document.getElementById("counter-holder");
     const numberOfSeconds = 31;
     element.innerText = `${numberOfSeconds - 1}`;
     const interval = setInterval(() => {
@@ -131,8 +123,8 @@ export const init = () => {
       if (value - 1 >= 7) {
         element.style.color = "white";
       }
-    }, 1000);
-    element.style.display = "inline-block";
+    }, 1000);*/
+    /*element.style.display = "inline-block";
     firstSongLabel.innerText = thirdSongLabel.innerText;
     secondSongLabel.innerText = fourthSongLabel.innerText;
     hideElement(document.getElementById("on-deck"));
@@ -143,7 +135,7 @@ export const init = () => {
       hideElement(element);
       hideElement(document.getElementById("up-next"));
       clearInterval(interval);
-    }, numberOfSeconds * 1000);
+    }, numberOfSeconds * 1000);*/
   }
 };
 

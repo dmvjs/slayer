@@ -1,11 +1,9 @@
-import { activeKey, keySort } from "./key.js";
+import { activeKey } from "./key.js";
 import { getSongById } from "./song.js";
 import { activeTempo, updateTempoUI } from "./tempo.js";
 import { songdata } from "./songdata.js";
 import { addTracks } from "./share.js";
 import {
-  deck1Select,
-  deck2Select, deck3Select,
   firstSongLabel,
   fourthSongLabel,
   hideElement,
@@ -14,7 +12,6 @@ import {
   thirdSongLabel,
   updateActiveKey,
 } from "./dom.js";
-import { getSongs } from "./getSongs.js";
 import "./shuffle.js";
 import { file } from "./utils.js";
 
@@ -75,7 +72,7 @@ export const updateUI = (
     secondSongLabel.className = `text-color-${fourthSongUI?.key}`;
     thirdSongLabel.className = `text-color-${firstSongUI.key}`;
     fourthSongLabel.className = `text-color-${secondSongUI?.key}`;
-    loadSongsIntoSelect();
+    // loadSongsIntoSelect();
     document.getElementById("play-button").className = `button-color-${key}`;
     document.getElementById("contact-button").className = `button-color-${key}`;
     document.getElementById("youtube-button").className = `button-color-${key}`;
@@ -101,76 +98,7 @@ export const getIdsFromArray = (part2) => {
 }
 
 export const getSelectedSongIds = () => {
-  const songs = getSongs();
-  const firstSong =
-    deck1Select.value === "-1"
-      ? null
-      : songs.thisTempoSongs.find((s) => {
-          return s.id === parseInt(deck1Select.value, 10);
-        });
-  const secondSong =
-    deck2Select.value === "-1"
-      ? null
-      : songs.thisTempoSongs.find((s) => {
-          return s.id === parseInt(deck2Select.value, 10);
-        });
-  const thirdSong =
-      deck2Select.value === "-1"
-          ? null
-          : songs.thisTempoSongs.find((s) => {
-            return s.id === parseInt(deck3Select.value, 10);
-          });
-
-   return [firstSong, secondSong, thirdSong];
-};
-export const loadSongsIntoSelect = () => {
-  const songs = getSongs();
-  deck1Select.length = 0;
-  deck2Select.length = 0;
-  deck3Select.length = 0;
-  const optionDefault1 = document.createElement("option");
-  optionDefault1.value = "-1";
-  optionDefault1.innerText = `Pick next deck 1 song ${activeTempo}bpm`;
-  deck1Select.appendChild(optionDefault1);
-  deck1Select.value = "-1";
-
-  const optionDefault2 = document.createElement("option");
-  optionDefault2.value = "-1";
-  optionDefault2.innerText = `Pick next deck 2 song ${activeTempo}bpm`;
-  deck2Select.appendChild(optionDefault2);
-  deck2Select.value = "-1";
-
-  const optionDefault3 = document.createElement("option");
-  optionDefault3.value = "-1";
-  optionDefault3.innerText = `Pick next deck 3 song ${activeTempo}bpm`;
-  deck3Select.appendChild(optionDefault3);
-  deck3Select.value = "-1";
-  [
-    ...new Set(
-      songs.thisTempoSongs
-        .filter(Boolean)
-        .sort((a, b) => a.title < b.title)
-        .sort((a, b) => a.artist > b.artist)
-        .sort(keySort),
-    ),
-  ].map((item) => {
-    const option1 = document.createElement("option");
-    option1.value = `${item.id}`;
-    option1.innerText = `${item.artist} - ${item.title} [${item.key}]`;
-    const option2 = document.createElement("option");
-    option2.value = `${item.id}`;
-    option2.innerText = `${item.artist} - ${item.title} [${item.key}]`;
-    const option3 = document.createElement("option");
-    option3.value = `${item.id}`;
-    option3.innerText = `${item.artist} - ${item.title} [${item.key}]`;
-    deck1Select.appendChild(option1);
-    deck2Select.appendChild(option2);
-    deck3Select.appendChild(option3);
-  });
-  //const ids = getIdsFromArray();
-  /*deck1Select.value = ids[0];
-  deck2Select.value = ids[1];
-  deck3Select.value = ids[2];*/
+   return [];
 };
 export const getTracks = (
   track1,

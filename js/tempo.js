@@ -1,7 +1,6 @@
 import { config } from "./config.js";
 import { songdata } from "./songdata.js";
 import { quantumRandom } from "./cryptoRandom.js";
-import { loadSongsIntoSelect } from "./tracks.js";
 import { resetTempoIndex } from "./preload.js";
 import { activeKey } from "./key.js";
 import { setKey } from "./dom.js";
@@ -21,7 +20,7 @@ export let activeTempo =
 export const onTempoChange = (e) => {
   // if the user hasnt clicked play for the first time yet,load the new tempo of songs into the UI and set active tempo
   setActiveTempo(tempos[e.target.value]);
-  loadSongsIntoSelect();
+  // loadSongsIntoSelect();
 };
 export const tempo1Input = document.getElementById("tempo-1");
 
