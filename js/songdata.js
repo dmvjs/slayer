@@ -152,5 +152,12 @@ export const songdata = [
     title: "OUT OUT",
     key: 1,
     bpm: 123,
+  },
+  {
+    id: 23,
+    artist: "Katy Perry",
+    title: "Firework",
+    key: 4,
+    bpm: 123,
   }
-];
+].filter(x=>x.id>17);
