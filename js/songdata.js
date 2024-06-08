@@ -159,5 +159,19 @@ export const songdata = [
     title: "Firework",
     key: 4,
     bpm: 123,
+  },
+  {
+    id: 24,
+    artist: "Sean Paul",
+    title: "Temperature",
+    key: 6,
+    bpm: 123,
+  },
+  {
+    id: 25,
+    artist: "Wolfgang Gartner",
+    title: "Forever",
+    key: 1,
+    bpm: 123,
   }
 ]
