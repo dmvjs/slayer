@@ -138,5 +138,19 @@ export const songdata = [
     title: "My Heart Goes La Di Da",
     key: 4,
     bpm: 123,
+  },
+  {
+    id: 21,
+    artist: "Shouse",
+    title: "Love Tonight",
+    key: 4,
+    bpm: 123,
+  },
+  {
+    id: 22,
+    artist: "Joel Corry",
+    title: "OUT OUT",
+    key: 1,
+    bpm: 123,
   }
 ];

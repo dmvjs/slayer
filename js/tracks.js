@@ -93,7 +93,7 @@ export const getSelectedSongIds = (part2) => {
   window.playedSongs = window.playedSongs || [];
   const songs = getSongs()
   const acapella = songs.thisTempoSongs.filter(v=>!window.playedSongs.flat().includes(v.id)).sort(keySort).slice(0, 6)._shuffle()[0].id
-  let values = songs.thisTempoSongs.sort(keySort).slice(0, 4)._shuffle();
+  let values = songs.thisTempoSongs.filter(x=>x.id !== acapella).sort(keySort).slice(0, 4)._shuffle();
   let firstTwo = values.slice(0, 2).map(x=>x.id)
   lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
   return lastValues;
@@ -127,7 +127,6 @@ export const getTracks = (
   }
   addTracks([firstSongId, secondSongId, thirdSongId]);
   const returnArray = [firstTrack, secondTrack, thirdTrack]
-  console.log(returnArray)
 
   requestAnimationFrame(
     updateUI(activeKey, firstSongId, secondSongId, thirdSongId, trackIndex, isFromCountdown),
