@@ -15,8 +15,5 @@ export const quantumRandom = () => {
   const finalValue = Number.isNaN(quantumValue)
     ? cryptoRandomValue
     : quantumValue;
-
-  console.log("🚨", finalValue, quantumValue, cryptoRandomValue);
-
   return finalValue;
 };
