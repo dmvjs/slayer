@@ -173,5 +173,27 @@ export const songdata = [
     title: "Forever",
     key: 1,
     bpm: 123,
+  },
+  {
+    id: 26,
+    artist: "Kylie Minogue",
+    title: "Cant Get You Out of my Head",
+    key: 7,
+    bpm: 123,
+  },
+  {
+    id: 27,
+    artist: "Ed Sheeran",
+    title: "Bad Habits",
+    key: 10,
+    bpm: 123,
+  },
+  {
+    id: 28,
+    artist: "Katy Perry",
+    title: "California Gurlz",
+    key: 7,
+    bpm: 123,
   }
+
 ]
