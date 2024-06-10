@@ -223,5 +223,12 @@ export const songdata = [
     title: "Moth to a Flame",
     key: 5,
     bpm: 123,
+  },
+  {
+    id: 33,
+    artist: "Rednex",
+    title: "Cotton Eyed Joe",
+    key: 5,
+    bpm: 123,
   }
 ]
