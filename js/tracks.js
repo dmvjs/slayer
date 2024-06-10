@@ -1,145 +1,68 @@
-import {activeKey, keySort} from "./key.js";
-import { getSongById } from "./song.js";
 import { activeTempo, updateTempoUI } from "./tempo.js";
-import { songdata } from "./songdata.js";
-import { addTracks } from "./share.js";
 import {
-  firstSongLabel,
-  fourthSongLabel,
-  hideElement,
-  secondSongLabel,
-  showElement,
-  thirdSongLabel,
   updateActiveKey,
 } from "./dom.js";
 import "./shuffle.js";
 import { file } from "./utils.js";
 import {getSongs} from "./getSongs.js";
+import {quantumRandom} from "./cryptoRandom.js";
+import {songdata} from "./songdata.js";
 
-let holder = {};
 export const magicNumber = 5;
 
 export let trackIndex = 0;
 export let isMagicTime = trackIndex % magicNumber === 0;
 
-export let fsID;
-export let ssID;
-
-export const updateUI = (
-  key,
-  firstSongId,
-  secondSongId,
-  thirdSongId,
-  trackIndex,
-  isFromCountdown = false,
-) => {
-  fsID = firstSongId;
-  ssID = secondSongId;
-  return () => {
-    document.body.className = `color-${key}`;
-    window.playedSongs = window.playedSongs || [];
-    window.playedSongs.push([thirdSongId]);
-    const firstSongUI = songdata.filter(
-      (item) =>
-        item.id === window.playedSongs[trackIndex < 0 ? 0 : trackIndex][0],
-    )[0];
-    const secondSongUI = songdata.filter(
-      (item) =>
-        item.id === window.playedSongs[trackIndex < 0 ? 0 : trackIndex][1],
-    )[0];
-    const thirdSongUI = songdata.filter(
-      (item) =>
-        item.id ===
-        window.playedSongs[trackIndex - 1 < 0 ? 0 : trackIndex - 1][0],
-    )[0];
-    const fourthSongUI = songdata.filter(
-      (item) =>
-        item.id ===
-        window.playedSongs[trackIndex - 1 < 0 ? 0 : trackIndex - 1][1],
-    )[0];
-    firstSongLabel.innerText = `${thirdSongUI.artist || ""} - ${
-      thirdSongUI.title || ""
-    }`;
-    secondSongLabel.innerText = `${fourthSongUI?.artist || ""} - ${
-      fourthSongUI?.title || ""
-    }`;
-    thirdSongLabel.innerText = `${firstSongUI?.artist || ""} - ${
-      firstSongUI.title || ""
-    }`;
-    fourthSongLabel.innerText = `${secondSongUI?.artist || ""} - ${
-      secondSongUI?.title || ""
-    }`;
-    firstSongLabel.className = `text-color-${thirdSongUI?.key}`;
-    secondSongLabel.className = `text-color-${fourthSongUI?.key}`;
-    thirdSongLabel.className = `text-color-${firstSongUI.key}`;
-    fourthSongLabel.className = `text-color-${secondSongUI?.key}`;
-    // loadSongsIntoSelect();
-    document.getElementById("play-button").className = `button-color-${key}`;
-    document.getElementById("contact-button").className = `button-color-${key}`;
-    document.getElementById("youtube-button").className = `button-color-${key}`;
-    document.getElementById("github-button").className = `button-color-${key}`;
-    if (isFromCountdown) {
-      showElement(document.getElementById("on-deck"));
-    } else {
-      hideElement(document.getElementById("on-deck"));
-    }
-    showElement(document.getElementById("now-playing"));
-  };
-};
-
 let lastValues = []
 
 export const getSelectedSongIds = (part2) => {
-  window.playedSongs = window.playedSongs || [];
+  window.playedAcapellas = window.playedAcapellas || [];
+  window.playedInstrumentals = window.playedInstrumentals || [];
   const songs = getSongs()
-  const acapella = songs.thisTempoSongs.filter(v=>!window.playedSongs.flat().includes(v.id)).sort(keySort).slice(0, 6)._shuffle()[0].id
-  let values = songs.thisTempoSongs.filter(x=>x.id !== acapella).sort(keySort).slice(0, 10)._shuffle();
-  let firstTwo = values.slice(0, 2).map(x=>x.id)
-  lastValues = lastValues.length === 0 ? [...firstTwo, acapella] : part2 ? lastValues : [...firstTwo, acapella];
+  let filteredSongs = songs
+      .thisTempoSongs
+      .filter(v=>!window.playedAcapellas.flat().includes(v.id))
+      ._shuffle()._shuffle()._shuffle()._shuffle()._shuffle()
+  const acapella = filteredSongs[Math.floor(quantumRandom() * filteredSongs.length)].id
+  window.playedAcapellas.push(acapella)
+  const firstSong = songdata.find(x=>x.id === acapella)
+
+  let filteredValues = songs
+      .thisTempoSongs
+      .filter(x=>x.id !== acapella)
+      .filter(x=>x.acapellaOnly !== true)
+      .filter(x=>x.artist !== firstSong.artist)
+      .filter(x=>!window.playedInstrumentals.includes(x.id))
+      ._shuffle()._shuffle()._shuffle()._shuffle()._shuffle();
+
+  let secondSong = filteredValues[Math.floor(quantumRandom() * filteredValues.length)]
+  let filteredInstrumentals = songs.thisTempoSongs.filter(x=>x.artist !== secondSong.artist)
+  let thirdSong = filteredInstrumentals[Math.floor(quantumRandom() * filteredInstrumentals.length)]
+  window.playedInstrumentals.push(secondSong.id)
+  window.playedInstrumentals.push(thirdSong.id)
+  lastValues = lastValues.length === 0 ? [secondSong.id, thirdSong.id, acapella] : part2 ? lastValues : [secondSong.id, thirdSong.id, acapella];
   return lastValues;
 }
 export const getTracks = (
   track1,
   track2,
   track3,
-  skipSamples = false,
-  isFromCountdown = false,
 ) => {
   isMagicTime = trackIndex % magicNumber === 0;
-  if (isMagicTime) {
-    // console.log('station identification…')
-  }
-  const firstSongFromURL = track1 && getSongById(track1);
-  const ids = getSelectedSongIds( trackIndex % magicNumber === 1);
-  const firstSongId = ids[0]
-  const secondSongId = ids[1]
-  const thirdSongId = ids[2]
+  const firstTrack = file(track1, isMagicTime);
+  const secondTrack = file(track2, isMagicTime);
+  const thirdTrack = file(track3, isMagicTime, true);
 
-  if (!isMagicTime) {
-    // console.log('followed by…')
-  }
-  const firstTrack = file(firstSongId, isMagicTime);
-  let secondTrack;
-  let thirdTrack;
-  if (secondSongId) {
-    secondTrack = file(secondSongId, isMagicTime);
-    thirdTrack = file(thirdSongId, isMagicTime, true);
-  }
-  addTracks([firstSongId, secondSongId, thirdSongId]);
   const returnArray = [firstTrack, secondTrack, thirdTrack]
 
-  requestAnimationFrame(
-    updateUI(activeKey, firstSongId, secondSongId, thirdSongId, trackIndex, isFromCountdown),
-  );
   if (isMagicTime) {
-    holder[trackIndex] = [firstSongId, secondSongId, thirdSongId];
   } else {
-    updateTempoUI(firstSongId.bpm);
+    updateTempoUI(firstTrack.bpm);
     updateActiveKey();
   }
   trackIndex += 1;
   return {
-    bpm: firstSongFromURL?.bpm || activeTempo,
+    bpm: activeTempo,
     list: returnArray,
   };
 };

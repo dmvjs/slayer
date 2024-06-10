@@ -1,6 +1,6 @@
 import {activeKey, getNextKey} from "./key.js";
 import {activeTempo} from "./tempo.js";
-import {getId, resetSongs, songs} from "./song.js";
+import {resetSongs, songs} from "./song.js";
 
 resetSongs()
 
@@ -15,15 +15,4 @@ export const getSongs = (key) => {
                 item.key === previousKey
         })
     return {thisKeySongs, thisTempoSongs};
-}
-
-export const getSong = (key, artist) => {
-    let {thisKeySongs, thisTempoSongs} = getSongs(key)
-    if (thisKeySongs.length) {
-        const choiceArray = thisKeySongs.filter(s=>s.artist !== artist)
-        return getId(choiceArray);
-    }
-    if (thisTempoSongs.length) {
-        return getId(thisTempoSongs.filter(s=>s.artist !== artist))
-    }
 }

@@ -76,13 +76,13 @@ export const init = () => {
 const loadTracks = (isFromCountdown = false, isStartingCountdown = false) => {
   const ids = getSelectedSongIds(trackIndex % magicNumber === 1);
   if (ids && typeof 1 === "number") {
-    const p1 = fetch(file(1, trackIndex % magicNumber === 0));
-    const p2 = fetch(file(2, trackIndex % magicNumber === 0));
-    const p3 = fetch(file(3, trackIndex % magicNumber === 0, true));
+    const p1 = fetch(file(ids[0], trackIndex % magicNumber === 0));
+    const p2 = fetch(file(ids[1], trackIndex % magicNumber === 0));
+    const p3 = fetch(file(ids[2], trackIndex % magicNumber === 0, true));
     Promise.all([p1, p2, p3]).then(() => {
       bufferLoader = new BufferLoader(
         context,
-        getTracks(1, 2, 3, isFromCountdown),
+        getTracks(...ids, isFromCountdown),
         finishedLoading,
       );
       bufferLoader.load();
@@ -125,7 +125,6 @@ function getAndStartBuffer(bufferListItem, time, addListener, buffers) {
 }
 
 function finishedLoading(bufferList, tempo) {
-  console.log(bufferList, tempo)
   getAndStartBuffer(bufferList[0], bufferPadding, true, [
     bufferList[0],
     bufferList[1],

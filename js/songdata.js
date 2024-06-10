@@ -13,13 +13,13 @@ export const songdata = [
     key: 9,
     bpm: 123,
   },
-  {
+  /*{
     id: 3,
     artist: "Pop Smoke",
     title: "For the Night",
     key: 12,
     bpm: 123,
-  },
+  },*/
   {
     id: 4,
     artist: "Carly Rae Jepsen",
@@ -48,13 +48,13 @@ export const songdata = [
     key: 5,
     bpm: 123,
   },
-  {
+  /*{
     id: 8,
     artist: "The Weeknd",
     title: "Take My Breath Away",
     key: 5,
     bpm: 123,
-  },
+  },*/
   {
     id: 9,
     artist: "Rihanna",
@@ -89,6 +89,7 @@ export const songdata = [
     title: "The Way You Move",
     key: 5,
     bpm: 123,
+    acapellaOnly: true,
   },
   {
     id: 14,
@@ -132,20 +133,20 @@ export const songdata = [
     key: 4,
     bpm: 123,
   },
-  {
+/*  {
     id: 20,
     artist: "Becky Hill",
     title: "My Heart Goes La Di Da",
     key: 4,
     bpm: 123,
-  },
-  {
+  },*/
+/*  {
     id: 21,
     artist: "Shouse",
     title: "Love Tonight",
     key: 4,
     bpm: 123,
-  },
+  },*/
   {
     id: 22,
     artist: "Joel Corry",
@@ -194,6 +195,33 @@ export const songdata = [
     title: "California Gurlz",
     key: 7,
     bpm: 123,
+  },
+  {
+    id: 28,
+    artist: "Owl City",
+    title: "Its Always a Good Time",
+    key: 5,
+    bpm: 123,
+  },
+  {
+    id: 28,
+    artist: "Black Eyed Peas",
+    title: "Boom Boom Pow",
+    key: 8,
+    bpm: 123,
+  },
+  {
+    id: 28,
+    artist: "Black Eyed Peas",
+    title: "My Humps Lil Jon Remix",
+    key: 12,
+    bpm: 123,
+  },
+  {
+    id: 32,
+    artist: "The Weeknd",
+    title: "Moth to a Flame",
+    key: 5,
+    bpm: 123,
   }
-
 ]
