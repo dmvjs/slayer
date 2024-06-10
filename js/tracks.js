@@ -22,7 +22,7 @@ export const getSelectedSongIds = (part2) => {
   let filteredSongs = songs
       .thisKeySongs
       .filter(v=>!window.playedAcapellas.flat().includes(v.id))
-      ._shuffle()._shuffle()._shuffle()._shuffle()._shuffle()
+      ._shuffle()
   if (filteredSongs.length === 0) {
     filteredSongs = songs
         .thisTempoSongs

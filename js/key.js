@@ -2,7 +2,7 @@ import { config } from "./config.js";
 import { quantumRandom } from "./cryptoRandom.js";
 export let initialKey =
   config.initialKey ??
-  parseInt(String(Math.floor(quantumRandom() * 12)), 10) + 1;
+  parseInt(String(Math.ceil(quantumRandom() * 12)), 10);
 export let activeKey = config.initialKey ?? initialKey; // 1-12
 
 export const setActiveKey = (key) => {
