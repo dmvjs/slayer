@@ -20,23 +20,57 @@ export const getSelectedSongIds = (part2) => {
   window.playedInstrumentals = window.playedInstrumentals || [];
   const songs = getSongs()
   let filteredSongs = songs
-      .thisTempoSongs
+      .thisKeySongs
       .filter(v=>!window.playedAcapellas.flat().includes(v.id))
       ._shuffle()._shuffle()._shuffle()._shuffle()._shuffle()
+  if (filteredSongs.length === 0) {
+    filteredSongs = songs
+        .thisTempoSongs
+        .filter(v=>!window.playedAcapellas.flat().includes(v.id))
+        ._shuffle()
+  }
   const acapella = filteredSongs[Math.floor(quantumRandom() * filteredSongs.length)].id
   window.playedAcapellas.push(acapella)
   const firstSong = songdata.find(x=>x.id === acapella)
 
   let filteredValues = songs
-      .thisTempoSongs
+      .thisKeySongs
       .filter(x=>x.id !== acapella)
       .filter(x=>x.acapellaOnly !== true)
       .filter(x=>x.artist !== firstSong.artist)
       .filter(x=>!window.playedInstrumentals.includes(x.id))
-      ._shuffle()._shuffle()._shuffle()._shuffle()._shuffle();
+      ._shuffle()
+  if (filteredValues.length === 0) {
+    filteredValues = songs
+        .thisTempoSongs
+        .filter(x=>x.id !== acapella)
+        .filter(x=>x.acapellaOnly !== true)
+        .filter(x=>x.artist !== firstSong.artist)
+        .filter(x=>!window.playedInstrumentals.includes(x.id))
+        ._shuffle()
+  }
 
   let secondSong = filteredValues[Math.floor(quantumRandom() * filteredValues.length)]
-  let filteredInstrumentals = songs.thisTempoSongs.filter(x=>x.artist !== secondSong.artist)
+
+  let filteredInstrumentals = songs
+      .thisKeySongs
+      .filter(x=>x.id !== acapella)
+      .filter(x=>x.acapellaOnly !== true)
+      .filter(x=>x.artist !== firstSong.artist)
+      .filter(x=>x.artist !== secondSong.artist)
+      .filter(x=>!window.playedInstrumentals.includes(x.id))
+      ._shuffle()
+  if (filteredInstrumentals.length === 0) {
+    filteredInstrumentals = songs
+        .thisTempoSongs
+        .filter(x=>x.id !== acapella)
+        .filter(x=>x.acapellaOnly !== true)
+        .filter(x=>x.artist !== firstSong.artist)
+        .filter(x=>x.artist !== secondSong.artist)
+        .filter(x=>!window.playedInstrumentals.includes(x.id))
+        ._shuffle()
+  }
+
   let thirdSong = filteredInstrumentals[Math.floor(quantumRandom() * filteredInstrumentals.length)]
   window.playedInstrumentals.push(secondSong.id)
   window.playedInstrumentals.push(thirdSong.id)
