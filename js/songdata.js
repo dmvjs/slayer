@@ -199,21 +199,21 @@ export const songdata = [
     bpm: 123,
   },
   {
-    id: 28,
+    id: 29,
     artist: "Owl City",
     title: "Its Always a Good Time",
     key: 5,
     bpm: 123,
   },
   {
-    id: 28,
+    id: 30,
     artist: "Black Eyed Peas",
     title: "Boom Boom Pow",
     key: 8,
     bpm: 123,
   },
   {
-    id: 28,
+    id: 31,
     artist: "Black Eyed Peas",
     title: "My Humps Lil Jon Remix",
     key: 12,
@@ -230,14 +230,14 @@ export const songdata = [
     id: 33,
     artist: "Rednex",
     title: "Cotton Eyed Joe",
-    key: 5,
+    key: 9,
     bpm: 123,
   },
   {
     id: 34,
     artist: "Miley Cyrus",
     title: "Party In the USA",
-    key: 5,
+    key: 2,
     bpm: 123,
   },
   /*{
@@ -247,4 +247,18 @@ export const songdata = [
     key: 5,
     bpm: 123,
   }*/
+  {
+    id: 36,
+    artist: "Billie Eilish",
+    title: "LUNCH",
+    key: 10,
+    bpm: 123,
+  },
+  {
+    id: 37,
+    artist: "Whitney Houston",
+    title: "How Will I Know Clean Bandit Remix",
+    key: 2,
+    bpm: 123,
+  },
 ]

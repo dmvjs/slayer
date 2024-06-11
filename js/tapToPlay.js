@@ -21,7 +21,10 @@ function startApplication() {
   playButton.addEventListener(myEvent, pauseApplication);
   disableTempoButtons();
   wakeLock = navigator.wakeLock.request("screen");
-  context.resume();
+  setTimeout(() => {
+    context.resume();
+  }, 800)
+
 }
 
 function pauseApplication() {
