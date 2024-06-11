@@ -1,7 +1,6 @@
 import { context } from "./context.js";
 import { init } from "./preload.js";
 import { disableTempoButtons } from "./dom.js";
-import {trackIndex} from "./tracks.js";
 
 const playButton = document.getElementById("play-button");
 
@@ -22,9 +21,7 @@ function startApplication() {
   playButton.addEventListener(myEvent, pauseApplication);
   disableTempoButtons();
   wakeLock = navigator.wakeLock.request("screen");
-  if (trackIndex > 0) {
-    context.resume();
-  }
+  context.resume();
 }
 
 function pauseApplication() {
@@ -34,7 +31,7 @@ function pauseApplication() {
   playButton.addEventListener(myEvent, startApplication);
 }
 
-document.addEventListener("visibilitychange", (event) => {
+document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
     // console.log("tab is active")
   } else {

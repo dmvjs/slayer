@@ -42,7 +42,7 @@ export const getSelectedSongIds = (part2) => {
       .filter(x=>x.acapellaOnly !== true)
       .filter(x=>x.artist !== firstSong.artist)
       .filter(x=>!artistsArray.includes(x.artist))
-      .filter(x=>!window.playedInstrumentals.includes(x.id))
+      .filter(x=>!window.playedInstrumentals.slice(0, -6).includes(x.id))
       ._shuffle()
 
   if (filteredValues.length === 0) {
@@ -51,7 +51,7 @@ export const getSelectedSongIds = (part2) => {
         .filter(x=>x.id !== acapella)
         .filter(x=>x.acapellaOnly !== true)
         .filter(x=>x.artist !== firstSong.artist)
-        .filter(x=>!window.playedInstrumentals.includes(x.id))
+        .filter(x=>!window.playedInstrumentals.slice(0, -6).includes(x.id))
         ._shuffle()
   }
 
@@ -63,7 +63,7 @@ export const getSelectedSongIds = (part2) => {
       .filter(x=>x.acapellaOnly !== true)
       .filter(x=>x.artist !== firstSong.artist)
       .filter(x=>x.artist !== secondSong.artist)
-      .filter(x=>!window.playedInstrumentals.includes(x.id))
+      .filter(x=>!window.playedInstrumentals.slice(0, -6).includes(x.id))
       ._shuffle()
 
   let thirdSong = filteredInstrumentals[Math.floor(quantumRandom() * filteredInstrumentals.length)]
