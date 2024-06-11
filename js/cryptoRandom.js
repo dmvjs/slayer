@@ -10,10 +10,10 @@ export const cryptoRandom = () => {
 };
 
 export const quantumRandom = () => {
-  const quantumValue = q.getFloat();
+  //const quantumValue = q.getFloat();
   const cryptoRandomValue = cryptoRandom();
-  const finalValue = Number.isNaN(quantumValue)
+  /*const finalValue = Number.isNaN(quantumValue)
     ? cryptoRandomValue
-    : quantumValue;
-  return finalValue;
+    : quantumValue;*/
+  return cryptoRandomValue;
 };

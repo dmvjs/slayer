@@ -1,6 +1,7 @@
 import { context } from "./context.js";
 import { init } from "./preload.js";
 import { disableTempoButtons } from "./dom.js";
+import {trackIndex} from "./tracks.js";
 
 const playButton = document.getElementById("play-button");
 
@@ -21,10 +22,9 @@ function startApplication() {
   playButton.addEventListener(myEvent, pauseApplication);
   disableTempoButtons();
   wakeLock = navigator.wakeLock.request("screen");
-  setTimeout(() => {
+  if (trackIndex > 0) {
     context.resume();
-    console.log('🚨')
-  }, 800);
+  }
 }
 
 function pauseApplication() {

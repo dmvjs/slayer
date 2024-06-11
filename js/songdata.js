@@ -133,20 +133,22 @@ export const songdata = [
     key: 4,
     bpm: 123,
   },
-/*  {
+  {
     id: 20,
     artist: "Becky Hill",
     title: "My Heart Goes La Di Da",
     key: 4,
     bpm: 123,
-  },*/
-/*  {
+    instrumentalOnly: true
+  },
+  {
     id: 21,
     artist: "Shouse",
     title: "Love Tonight",
     key: 4,
     bpm: 123,
-  },*/
+    instrumentalOnly: true
+  },
   {
     id: 22,
     artist: "Joel Corry",
@@ -230,5 +232,19 @@ export const songdata = [
     title: "Cotton Eyed Joe",
     key: 5,
     bpm: 123,
-  }
+  },
+  {
+    id: 34,
+    artist: "Miley Cyrus",
+    title: "Party In the USA",
+    key: 5,
+    bpm: 123,
+  },
+  /*{
+    id: 35,
+    artist: "Dua Lipa",
+    title: "Dance the Night",
+    key: 5,
+    bpm: 123,
+  }*/
 ]

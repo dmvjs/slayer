@@ -39,6 +39,9 @@ const loadTracks = () => {
     const p2 = fetch(file(ids[1], trackIndex % magicNumber === 0));
     const p3 = fetch(file(ids[2], trackIndex % magicNumber === 0, true));
     Promise.all([p1, p2, p3]).then(() => {
+      if (isFirst) {
+        context.resume()
+      }
       bufferLoader = new BufferLoader(
         context,
         getTracks(...ids),
