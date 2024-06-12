@@ -141,14 +141,14 @@ export const songdata = [
     bpm: 123,
     instrumentalOnly: true
   },
-  {
+  /*{
     id: 21,
     artist: "Shouse",
     title: "Love Tonight",
     key: 4,
     bpm: 123,
     instrumentalOnly: true
-  },
+  },*/
   {
     id: 22,
     artist: "Joel Corry",
@@ -205,13 +205,13 @@ export const songdata = [
     key: 5,
     bpm: 123,
   },
-  {
+  /*{
     id: 30,
     artist: "Black Eyed Peas",
     title: "Boom Boom Pow",
     key: 8,
     bpm: 123,
-  },
+  },*/
   {
     id: 31,
     artist: "Black Eyed Peas",
