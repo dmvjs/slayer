@@ -139,16 +139,16 @@ export const songdata = [
     title: "My Heart Goes La Di Da",
     key: 4,
     bpm: 123,
-    instrumentalOnly: true
+    acapellaOnly: true
   },
-  /*{
+  {
     id: 21,
     artist: "Shouse",
     title: "Love Tonight",
     key: 4,
     bpm: 123,
     instrumentalOnly: true
-  },*/
+  },
   {
     id: 22,
     artist: "Joel Corry",
@@ -184,13 +184,13 @@ export const songdata = [
     key: 7,
     bpm: 123,
   },
-  {
+  /*{
     id: 27,
     artist: "Ed Sheeran",
     title: "Bad Habits",
     key: 10,
     bpm: 123,
-  },
+  },*/
   {
     id: 28,
     artist: "Katy Perry",
@@ -246,7 +246,7 @@ export const songdata = [
     title: "Dance the Night",
     key: 5,
     bpm: 123,
-  }*/
+  },*/
   {
     id: 36,
     artist: "Billie Eilish",
@@ -259,6 +259,20 @@ export const songdata = [
     artist: "Whitney Houston",
     title: "How Will I Know Clean Bandit Remix",
     key: 2,
+    bpm: 123,
+  },
+  {
+    id: 38,
+    artist: "Tag Team",
+    title: "Whoomp There It Is",
+    key: 4,
+    bpm: 123,
+  },
+  {
+    id: 39,
+    artist: "Tiesto",
+    title: "The Business",
+    key: 1,
     bpm: 123,
   },
 ]
